@@ -359,13 +359,13 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change;..\..\BSP\gsm_usart2</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -612,6 +612,16 @@
               <FileName>bsp_debug_usart1.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\BSP\debug_usatr1\bsp_debug_usart1.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gsm_usart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\gsm_usart2\bsp_gsm_usart2.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gsm_usart2.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\BSP\gsm_usart2\bsp_gsm_usart2.h</FilePath>
             </File>
           </Files>
         </Group>
