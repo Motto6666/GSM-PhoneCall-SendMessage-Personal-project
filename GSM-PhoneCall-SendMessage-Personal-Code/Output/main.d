@@ -11,3 +11,4 @@
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\misc.h
 ..\..\output\main.o: ..\..\BSP\debug_usatr1\bsp_debug_usart1.h
 ..\..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\main.o: ..\..\User\call_send_mode_change\call_send_mode_change.h

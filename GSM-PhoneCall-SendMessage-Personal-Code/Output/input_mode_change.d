@@ -1,0 +1,13 @@
+..\..\output\input_mode_change.o: ..\..\User\input_mode_change\input_mode_change.c
+..\..\output\input_mode_change.o: ..\..\User\input_mode_change\input_mode_change.h
+..\..\output\input_mode_change.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\output\input_mode_change.o: ..\..\Libraries\CMSIS\core_cm3.h
+..\..\output\input_mode_change.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\input_mode_change.o: ..\..\Libraries\CMSIS\system_stm32f10x.h
+..\..\output\input_mode_change.o: ..\..\User\stm32f10x_conf.h
+..\..\output\input_mode_change.o: ..\..\Libraries\FWlib\inc\stm32f10x_gpio.h
+..\..\output\input_mode_change.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\output\input_mode_change.o: ..\..\Libraries\FWlib\inc\stm32f10x_rcc.h
+..\..\output\input_mode_change.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
+..\..\output\input_mode_change.o: ..\..\Libraries\FWlib\inc\misc.h
+..\..\output\input_mode_change.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

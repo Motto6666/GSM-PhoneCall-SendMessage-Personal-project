@@ -11,4 +11,4 @@
 ..\..\output\bsp_debug_usart1.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\..\output\bsp_debug_usart1.o: ..\..\Libraries\FWlib\inc\misc.h
 ..\..\output\bsp_debug_usart1.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\..\output\bsp_debug_usart1.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\..\output\bsp_debug_usart1.o: ..\..\User\call_send_mode_change\call_send_mode_change.h

@@ -1,9 +1,10 @@
 #include "stm32f10x.h"
 #include "bsp_debug_usart1.h"
+#include "call_send_mode_change.h"
 #include "stdio.h"
 
 extern volatile uint8_t Call_Send_Order;//拨打电话和发送短信标识符，初始值为0
-volatile uint8_t Mode = 0;//拨打电话和发送短信模式，初始值为0
+extern volatile uint8_t Mode;//拨打电话和发送短信模式，初始值为0
 
 int main(void)
 {	
@@ -21,16 +22,16 @@ int main(void)
 				Call_Send_Order = NONE;//避免重复操作
 			}break;
 			
+			case CALLING_PHONE:
+			{ 
+				printf("\r\n正在拨打您输入的电话....\r\n");
+				Call_Send_Order = NONE;//避免重复操作
+			}break;
+			
 			case SEND_MESSAGE_Prepare:
 			{
 				printf("\r\n请输入短信电话号码：\r\n");
 				Mode = SEND_Already_Prepare;//切换准备发送短信模式
-				Call_Send_Order = NONE;//避免重复操作
-			}break;
-			
-			case CALLING_PHONE:
-			{ 
-				printf("\r\n正在拨打电话....\r\n");
 				Call_Send_Order = NONE;//避免重复操作
 			}break;
 			
@@ -50,4 +51,3 @@ int main(void)
 		}
 	}	
 }
-/*********************************************END OF FILE**********************/

@@ -1,5 +1,5 @@
 #include "bsp_debug_usart1.h"
-#include "string.h"
+#include "call_send_mode_change.h"
 
 /*配置中断优先级*/
 static void NVIC_Configuration(void)
@@ -73,13 +73,13 @@ void USART1_Config(void)
 }
 
 
-///重定向c库函数printf到串口，重定向后可使用printf函数
+/*重定向c库函数printf到串口，重定向后可使用printf函数*/
 int fputc(int ch, FILE *f)
 {
-		/* 发送一个字节数据到串口 */
+		//发送一个字节数据到串口
 		USART_SendData(DEBUG_USART1, (uint8_t) ch);
 		
-		/* 等待发送完毕 */
+		//等待发送完毕
 		while (USART_GetFlagStatus(DEBUG_USART1, USART_FLAG_TXE) == RESET);		
 	
 		return (ch);
@@ -88,13 +88,8 @@ int fputc(int ch, FILE *f)
 
 static char  USART1_RX_String[50];//存放USART1串口接收到的数据的数组
 volatile uint16_t USART1_Count = 0;//记录接收到的字符个数，初始值位0
-const char CallPhone_String[50]   = {"CallPhone"};//拨打电话字符串标识符
-const char SendMessage_String[50] = {"SendMessage"};//发送短信字符串标识符
-volatile uint8_t Call_Send_Order = 0;//拨打电话和发送短信标识符，初始值为'0'
-volatile char Phone_Num[50];//存放电话号码的数组
-extern volatile uint8_t Mode;//拨打电话和发送短信模式，初始值为0
 
-// 串口中断服务函数
+/*串口接收中断服务函数*/
 void DEBUG_USART1_IRQHandler(void)
 {
 	if(USART_GetITStatus(DEBUG_USART1,USART_IT_RXNE)!=RESET)
@@ -107,52 +102,15 @@ void DEBUG_USART1_IRQHandler(void)
     else
     {
 			USART1_RX_String[USART1_Count] = '\0';//清除空格结束标志位
-			
-			if(strcmp(CallPhone_String,USART1_RX_String) == 0)//判断USART1串口接收到的数据是否为拨打电话字符串标识符
-			{
-				Call_Send_Order = CALL_PHONE_Prepare;
-			}
-			
-			if(strcmp(SendMessage_String,USART1_RX_String) == 0)//判断USART1串口接收到的数据是否为发送短信字符串标识符
-			{
-				Call_Send_Order = SEND_MESSAGE_Prepare;
-			}
-			
-			if((strcmp(SendMessage_String,USART1_RX_String) != 0 )&& (strcmp(CallPhone_String,USART1_RX_String) != 0))
-			{
-				if(strlen(USART1_RX_String) == 11)//判断输入的电话号码是否为11位
-				{
-					switch(Mode)
-					{
-						case CALL_Already_Prepare:
-						{
-							Mode = 0;//模式恢复到最初值，避免重复执行
-							Call_Send_Order = CALLING_PHONE;//切换拨打电话状态
-						}break;
-						
-						case SEND_Already_Prepare:
-						{
-							Mode = 0;//模式恢复到最初值，避免重复执行
-							Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
-						}break;
-						default:
-            {
-							Call_Send_Order = ERROR;
-						}break;
-							
-					}
-				}
-				else
-				{
-					Call_Send_Order = ERROR;
-				}
-			}
+			Call_Send_Mode_Change(USART1_RX_String);
 			USART1_RX_Clean();//清除USAET1串口接收字符串缓存，即清空USART1_RX_String[50]中的数据
 		}			
 	}	 
 }
 
-void USART1_RX_Clean(void) //清除USAET1串口接收字符串缓存
+
+/*清除USAET1串口接收字符串缓存*/
+void USART1_RX_Clean(void) 
 {
 	uint8_t b;
 	for(b=0;b<50;b++)

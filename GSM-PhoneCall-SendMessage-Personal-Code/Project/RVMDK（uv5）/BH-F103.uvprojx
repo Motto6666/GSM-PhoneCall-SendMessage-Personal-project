@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -587,6 +587,16 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\User\stm32f10x_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>call_send_mode_change.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\call_send_mode_change\call_send_mode_change.c</FilePath>
+            </File>
+            <File>
+              <FileName>call_send_mode_change.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\User\call_send_mode_change\call_send_mode_change.h</FilePath>
             </File>
           </Files>
         </Group>
