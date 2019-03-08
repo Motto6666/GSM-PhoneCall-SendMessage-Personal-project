@@ -28,8 +28,10 @@
 "..\..\output\main.o"
 "..\..\output\stm32f10x_it.o"
 "..\..\output\call_send_mode_change.o"
+"..\..\output\gsm_usart2_data_processing.o"
 "..\..\output\bsp_debug_usart1.o"
 "..\..\output\bsp_gsm_usart2.o"
+"..\..\output\bsp_systick.o"
 --library_type=microlib --strict --scatter "..\..\Output\USART.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

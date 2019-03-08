@@ -102,7 +102,7 @@ void DEBUG_USART1_IRQHandler(void)
     else
     {
 			USART1_RX_String[USART1_Count] = '\0';//清除空格结束标志位
-			Call_Send_Mode_Change(USART1_RX_String);
+			Call_Send_Mode_Change(USART1_RX_String);//判断输入的字符，作出GSM功能的切换
 			USART1_RX_Clean();//清除USAET1串口接收字符串缓存，即清空USART1_RX_String[50]中的数据
 		}			
 	}	 

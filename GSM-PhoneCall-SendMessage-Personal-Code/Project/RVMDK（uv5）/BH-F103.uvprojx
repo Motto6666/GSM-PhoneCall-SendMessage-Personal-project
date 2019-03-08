@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change;..\..\BSP\gsm_usart2</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change;..\..\BSP\gsm_usart2;..\..\User\gsm_usart2_data_processing;..\..\BSP\systick</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -598,6 +598,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\User\call_send_mode_change\call_send_mode_change.h</FilePath>
             </File>
+            <File>
+              <FileName>gsm_usart2_data_processing.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\gsm_usart2_data_processing\gsm_usart2_data_processing.c</FilePath>
+            </File>
+            <File>
+              <FileName>gsm_usart2_data_processing.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\User\gsm_usart2_data_processing\gsm_usart2_data_processing.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -622,6 +632,16 @@
               <FileName>bsp_gsm_usart2.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\BSP\gsm_usart2\bsp_gsm_usart2.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\systick\bsp_systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\BSP\systick\bsp_systick.h</FilePath>
             </File>
           </Files>
         </Group>

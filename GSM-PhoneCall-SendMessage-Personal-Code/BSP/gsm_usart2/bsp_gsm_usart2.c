@@ -1,4 +1,5 @@
 #include "bsp_gsm_usart2.h"
+#include <stdarg.h>
 
 /*配置中断优先级*/
 static void NVIC_Configuration(void)
@@ -72,41 +73,40 @@ void GSM_USART2_Config(void)
 }
 
 
-/*发送一个字符*/
-void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch)
-{
-	/* 发送一个字节数据到USART */
-	USART_SendData(pUSARTx,ch);
-		
-	/* 等待发送数据寄存器为空 */
-	while (USART_GetFlagStatus(pUSARTx, USART_FLAG_TXE) == RESET);	
-}
 /*发送字符串*/
-void Usart_SendString( USART_TypeDef * pUSARTx, char *str)
-{
-	unsigned int k=0;
-  do 
-  {
-      Usart_SendByte( pUSARTx, *(str + k) );
-      k++;
-  } while(*(str + k)!='\0');
-  
-  /* 等待发送完成 */
-  while(USART_GetFlagStatus(pUSARTx,USART_FLAG_TC)==RESET)
-  {}
+void GSM_USART2_Send(char * str)
+{    
+  while(*str)  
+  {        
+		USART_SendData(GSM_USART2, *str++);  		          
+		while(USART_GetFlagStatus(GSM_USART2, USART_FLAG_TC) == RESET);    
+	}
 }
 
-
+volatile char  USART2_RX_String[50];//存放USART2串口接收到的数据的数组
+volatile uint16_t USART2_Count = 0;//记录接收到的字符个数，初始值位0
 /*USART2串口中断服务函数*/
 void GSM_USART2_IRQHandler(void)
 {
-  uint8_t ucTemp;
 	if(USART_GetITStatus(GSM_USART2,USART_IT_RXNE)!=RESET)
 	{		
-		ucTemp = USART_ReceiveData(GSM_USART2);
-    USART_SendData(GSM_USART2,ucTemp);    
+		USART2_RX_String[USART2_Count] = USART_ReceiveData(GSM_USART2);
+    USART2_Count++;
+    //USART2_RX_Clean();//清除USAET1串口接收字符串缓存，即清空USART1_RX_String[50]中的数据
+	    
 	}	 
 }
 
+
+/*清除USAET2串口接收字符串缓存*/
+void USART2_RX_Clean(void)
+{
+	uint8_t b;
+	for(b=0;b<50;b++)
+	{
+		USART2_RX_String[b] = '\0';
+	}
+	USART2_Count = 0;//恢复初始值0
+}
 
 

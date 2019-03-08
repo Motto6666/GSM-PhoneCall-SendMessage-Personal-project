@@ -26,7 +26,7 @@
 
 
 void GSM_USART2_Config(void);
-void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);
-void Usart_SendString( USART_TypeDef * pUSARTx, char *str);
+void GSM_USART2_Send(char * str);
+void USART2_RX_Clean(void);
 
 #endif /*__BSP_GSM_UARST2_H*/

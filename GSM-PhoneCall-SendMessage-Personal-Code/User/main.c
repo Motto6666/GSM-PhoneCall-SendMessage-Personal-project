@@ -10,7 +10,7 @@ extern volatile uint8_t Mode;//拨打电话和发送短信模式，初始值为0
 int main(void)
 {	
   USART1_Config();//初始化USART1串口
-	GSM_USART2_Config();
+	GSM_USART2_Config();//初始化USART2串口
 	printf("\r\n提示：输入CallPhone为拨打电话，输入SendMessage为发送短信\r\n");
 	printf("\r\n注意：字符串后需要添加空格！！\r\n");
   while(1)
