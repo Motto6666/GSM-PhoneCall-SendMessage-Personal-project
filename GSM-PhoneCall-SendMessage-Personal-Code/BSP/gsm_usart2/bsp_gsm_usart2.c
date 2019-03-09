@@ -83,7 +83,7 @@ void GSM_USART2_Send(char * str)
 	}
 }
 
-volatile char  USART2_RX_String[50];//存放USART2串口接收到的数据的数组
+char  USART2_RX_String[50];//存放USART2串口接收到的数据的数组
 volatile uint16_t USART2_Count = 0;//记录接收到的字符个数，初始值位0
 /*USART2串口中断服务函数*/
 void GSM_USART2_IRQHandler(void)

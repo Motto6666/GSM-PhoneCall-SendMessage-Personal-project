@@ -14,3 +14,4 @@
 ..\..\output\gsm_usart2_data_processing.o: ..\..\BSP\systick\bsp_systick.h
 ..\..\output\gsm_usart2_data_processing.o: ..\..\BSP\debug_usatr1\bsp_debug_usart1.h
 ..\..\output\gsm_usart2_data_processing.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\gsm_usart2_data_processing.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

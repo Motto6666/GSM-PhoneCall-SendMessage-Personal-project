@@ -13,3 +13,4 @@
 ..\..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\main.o: ..\..\User\call_send_mode_change\call_send_mode_change.h
 ..\..\output\main.o: ..\..\BSP\gsm_usart2\bsp_gsm_usart2.h
+..\..\output\main.o: ..\..\User\gsm_usart2_data_processing\gsm_usart2_data_processing.h

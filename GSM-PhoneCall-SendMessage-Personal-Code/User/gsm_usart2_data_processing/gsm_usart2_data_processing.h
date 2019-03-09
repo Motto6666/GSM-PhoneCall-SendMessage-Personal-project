@@ -3,7 +3,7 @@
 
 #include "stm32f10x.h"
 
-uint8_t GSM_Check_Response(void);
-void GSM_Call_Cmd(void);
+uint8_t GSM_Init(void);
+void GSM_Call(char *USART1_RX_String);
 
 #endif /*__GSM_USART2_DATA_PROCESSING_H*/
