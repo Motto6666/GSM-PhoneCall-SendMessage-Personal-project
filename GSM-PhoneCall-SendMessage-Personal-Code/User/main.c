@@ -41,6 +41,13 @@ int main(void)
 				Call_Send_Order = NONE;//避免重复操作
 			}break;
 			
+			case CONTENT_MESSAGE:
+			{
+				printf("\r\n请输入英文短信内容：\r\n");
+				Mode = SENDING_MESSAGE;//切换为发送短信模式
+				Call_Send_Order = NONE;//避免重复操作
+			}break;
+			
 			case SENDING_MESSAGE:
 			{ 
 				printf("\r\n正在发送短信....\r\n");

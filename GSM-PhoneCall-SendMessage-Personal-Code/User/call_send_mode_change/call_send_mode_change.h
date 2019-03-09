@@ -11,8 +11,10 @@
 #define  CALL_Already_Prepare   4
 #define  SEND_Already_Prepare   5
 #define  CALLING_PHONE          6
-#define  SENDING_MESSAGE        7
+#define  CONTENT_MESSAGE        7
+#define  SENDING_MESSAGE        8
 
 void Call_Send_Mode_Change(char *USART1_RX_String);
+void PhoneNum_Clean(char *PhoneNum);
 
 #endif /*__CALL_SEND_MODE_CHANGE*/

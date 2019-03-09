@@ -4,7 +4,7 @@
 
 #include "call_send_mode_change.h"
 #include "string.h"
-#include "bsp_debug_usart1.h"
+#include "bsp_debug_usart1.h"//留着USART2头文件，调试GSM，调试完毕删除！！！
 #include "bsp_gsm_usart2.h" //留着USART2头文件，调试GSM，调试完毕删除！！！
 #include "gsm_usart2_data_processing.h"
 
@@ -12,15 +12,19 @@ const char CallPhone_String[50]   = {"CallPhone"};//拨打电话字符串标识符
 const char SendMessage_String[50] = {"SendMessage"};//发送短信字符串标识符
 volatile uint8_t Call_Send_Order = NONE;//拨打电话和发送短信标识符，初始值为'0'
 volatile uint8_t Mode = NONE;//拨打电话和发送短信模式，初始值为0
+char Phone_Num[50];//输入的记录电话号码
+
 
 void Call_Send_Mode_Change(char *USART1_RX_String)
 {
-	if(strcmp(CallPhone_String,USART1_RX_String) == 0)//判断USART1串口接收到的数据是否为拨打电话字符串标识符
+	//判断USART1串口接收到的数据是否为拨打电话字符串标识符
+	if(strcmp(CallPhone_String,USART1_RX_String) == 0)
 	{
 		Call_Send_Order = CALL_PHONE_Prepare;
 	}
-			
-	if(strcmp(SendMessage_String,USART1_RX_String) == 0)//判断USART1串口接收到的数据是否为发送短信字符串标识符
+		
+	//判断USART1串口接收到的数据是否为发送短信字符串标识符
+	if(strcmp(SendMessage_String,USART1_RX_String) == 0)
 	{
 		Call_Send_Order = SEND_MESSAGE_Prepare;
 	}
@@ -45,9 +49,17 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 						
 						case SEND_Already_Prepare:
 						{
+							Call_Send_Order = CONTENT_MESSAGE;//切换输入英文短信内容状态
+							strcpy(Phone_Num,USART1_RX_String);//将输入的电话号码复制到Phone_Num数组上
+						}break;
+						
+						case SENDING_MESSAGE:
+						{
 							Mode = NONE;//模式恢复到最初值，避免重复执行
 							Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
-							//strcpy(Phone_Num_Str,USART1_RX_String);
+							//1.定义一个发送短信的函数，参数分别为Phone_Num以及USART1_RX_String！！！！！！
+							printf("%s\n",Phone_Num);//调试使用，调试完毕删除
+							PhoneNum_Clean(Phone_Num);//清除Phone_Num数组中的数据
 						}break;
 						
 						default:
@@ -61,5 +73,23 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 				{
 					Call_Send_Order = ERROR;
 				}
+	}
+	
+	if(Mode == SENDING_MESSAGE)
+	{
+		Mode = NONE;//模式恢复到最初值，避免重复执行
+		Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
+		//1.定义一个发送短信的函数，参数分别为Phone_Num以及USART1_RX_String！！！！！！
+		printf("%s\n",Phone_Num);//调试使用，调试完毕删除
+	  PhoneNum_Clean(Phone_Num);//清除Phone_Num数组中的数据
+	}
+}
+
+void PhoneNum_Clean(char *PhoneNum)
+{
+	uint8_t i;
+	for(i=0;i<50;i++)
+	{
+		PhoneNum[i] = '\0';
 	}
 }
