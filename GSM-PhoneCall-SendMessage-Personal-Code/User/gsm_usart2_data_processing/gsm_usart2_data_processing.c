@@ -31,6 +31,7 @@ uint8_t GSM_Init(void)
 }
 
 
+/*GSM电话拨打函数*/
 void GSM_Call(char *USART1_RX_String)//检查GSM模块响应
 {
 	USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
@@ -54,6 +55,43 @@ void GSM_Call(char *USART1_RX_String)//检查GSM模块响应
 //		printf("电话拨打失败\n");
 //		USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
 //	}
+}
+
+
+/*GSM短信发送函数*/
+char end = 0x1A;//发送短信结束符号
+void GSM_Send(char *Phone_Num,char *Content_Message)
+{
+	char CmdBuff[50];//存放指令数组
+	
+  USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+			
+  GSM_USART2_Send("AT+CSCS=\"GSM\"\r");
+	SysTick_Delay_ms(100);
+	while( strstr(USART2_RX_String,"OK") == NULL);//检测是否有OK数据帧返回
+	printf("%s\n",USART2_RX_String);//调试完毕删除！!
+	USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+	
+	GSM_USART2_Send("AT+CMGF=1\r");
+	SysTick_Delay_ms(100);
+	while( strstr(USART2_RX_String,"OK") == NULL);//检测是否有OK数据帧返回
+	printf("%s\n",USART2_RX_String);//调试完毕删除！!
+	USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+	
+	sprintf( CmdBuff,"AT+CMGS=\"%s\"\r",Phone_Num);
+	GSM_USART2_Send(CmdBuff);
+	SysTick_Delay_ms(200);//等待USART2_RX接收数据
+	while( strstr(USART2_RX_String,">") == NULL);//检测是否有>数据帧返回
+	printf("%s\n",USART2_RX_String);//调试完毕删除！!
+	USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+	
+	GSM_USART2_Send(Content_Message);//发送短信类容
+	
+	GSM_USART2_Send( &end );//发送结束指令
+	SysTick_Delay_ms(5000);//等待USART2_RX接收数据
+	while( strstr(USART2_RX_String,"OK") == NULL);//检测是否有OK数据帧返回
+	printf("%s\n",USART2_RX_String);//调试完毕删除！!
+	USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
 }
 
 

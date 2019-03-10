@@ -5,5 +5,6 @@
 
 uint8_t GSM_Init(void);
 void GSM_Call(char *USART1_RX_String);
+void GSM_Send(char *Phone_Num,char *Content_Message);
 
 #endif /*__GSM_USART2_DATA_PROCESSING_H*/

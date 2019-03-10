@@ -95,7 +95,7 @@ void DEBUG_USART1_IRQHandler(void)
 	if(USART_GetITStatus(DEBUG_USART1,USART_IT_RXNE)!=RESET)
 	{		
 		USART1_RX_String[USART1_Count] = USART_ReceiveData(DEBUG_USART1);//接收串口发送过来的字符
-		if(USART1_RX_String[USART1_Count] != ' ')//判断是否接收到空格结束标志位
+		if(USART1_RX_String[USART1_Count] != '+')//判断是否接收到空格结束标志位
 		{
 			USART1_Count++;
 		}

@@ -5,11 +5,11 @@
 
 /*拨打电话和发送短信标识符宏定义*/
 #define  NONE                   0
-#define  CALL_PHONE_Prepare     1
-#define  SEND_MESSAGE_Prepare   2 
+#define  CALL_PHONE_PREPARE     1
+#define  SEND_MESSAGE_PREPARE   2 
 #define  ERROR                  3
-#define  CALL_Already_Prepare   4
-#define  SEND_Already_Prepare   5
+#define  CALL_ALREADY_PREPARE   4
+#define  SEND_ALREADY_PREPARE   5
 #define  CALLING_PHONE          6
 #define  CONTENT_MESSAGE        7
 #define  SENDING_MESSAGE        8
