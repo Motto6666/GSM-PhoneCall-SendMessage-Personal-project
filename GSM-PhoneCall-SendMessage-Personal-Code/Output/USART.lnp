@@ -32,6 +32,7 @@
 "..\..\output\bsp_debug_usart1.o"
 "..\..\output\bsp_gsm_usart2.o"
 "..\..\output\bsp_systick.o"
+"..\..\output\bsp_basetime.o"
 --library_type=microlib --strict --scatter "..\..\Output\USART.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

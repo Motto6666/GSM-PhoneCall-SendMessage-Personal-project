@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change;..\..\BSP\gsm_usart2;..\..\User\gsm_usart2_data_processing;..\..\BSP\systick</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\BSP\debug_usatr1;..\..\User\call_send_mode_change;..\..\BSP\gsm_usart2;..\..\User\gsm_usart2_data_processing;..\..\BSP\systick;..\..\BSP\basetime</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -642,6 +642,16 @@
               <FileName>bsp_systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\BSP\systick\bsp_systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_basetime.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\basetime\bsp_basetime.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_basetime.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\BSP\basetime\bsp_basetime.h</FilePath>
             </File>
           </Files>
         </Group>

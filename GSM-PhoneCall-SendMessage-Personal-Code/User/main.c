@@ -4,16 +4,14 @@
 #include "stdio.h"
 #include "bsp_gsm_usart2.h"
 #include "gsm_usart2_data_processing.h"
+#include "bsp_basetime.h"
 
-//#include "bsp_systick.h"//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//#include "string.h"//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//extern char  USART2_RX_String[50];//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//char end = 0x1A;//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
 
 extern volatile uint8_t Call_Send_Order;//²¦´òµç»°ºÍ·¢ËÍ¶ÌĞÅ±êÊ¶·û£¬³õÊ¼ÖµÎª0
 extern volatile uint8_t Mode;//²¦´òµç»°ºÍ·¢ËÍ¶ÌĞÅÄ£Ê½£¬³õÊ¼ÖµÎª0
 extern char  USART1_RX_String[50];//´æ·ÅUSART1´®¿Ú½ÓÊÕµ½µÄÊı¾İµÄÊı×é
 extern volatile uint8_t  Receive_Over;//½ÓÊÕÊı¾İ½áÊø±êÊ¶·û£¬³õÊ¼»¯Îª0
+extern volatile uint8_t  GSM_SysCheck;//GSMÏµÍ³¼ì²â±êÖ¾·û£¬³õÊ¼»¯Îª0
 
 
 int main(void)
@@ -26,21 +24,7 @@ int main(void)
 	printf("\r\nÌáÊ¾£ºÊäÈëCallPhoneÎª²¦´òµç»°£¬ÊäÈëSendMessageÎª·¢ËÍ¶ÌĞÅ\r\n");
 	printf("\r\n×¢Òâ£º×Ö·û´®ºóĞèÒªÌí¼Ó'+'·ûºÅ£¡£¡\r\n");
 
-//	/*¼ì²âSIM¿¨²åÈëÊÇ·ñÒì³£*/
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
-//  GSM_USART2_Send("AT+CNUM\r");//µ÷ÊÔGSM£¬µ÷ÊÔÍê±ÏÉ¾³ı
-//	SysTick_Delay_ms(100);
-//  printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
-//	¡
-//	/*¼ì²âĞÅºÅ*/
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
-//  GSM_USART2_Send("AT+CSQ\r");//µ÷ÊÔGSM£¬µ÷ÊÔÍê±ÏÉ¾³ı
-//	SysTick_Delay_ms(100);
-//  printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
-	
-	
+	BASIC_TIM_Init();//³õÊ¼»¯»ù±¾¶¨Ê±Æ÷
 	
   while(1)
 	{
@@ -88,11 +72,28 @@ int main(void)
 			default: break;
 		}
 		
-		if(Receive_Over == 1)
+		
+		if(Receive_Over == 1)//USART1´®¿Ú½ÓÊÕÍê±Ï
 		{
 			Receive_Over = 0;//½ÓÊÕÊı¾İ½áÊø±êÊ¶·û»Ö¸´µ½×î³õÖµ£¬±ÜÃâÖØ¸´²Ù×÷
 			Call_Send_Mode_Change(USART1_RX_String);//ÅĞ¶ÏÊäÈëµÄ×Ö·û£¬×÷³öGSM¹¦ÄÜµÄÇĞ»»
 			USART1_RX_Clean();//Çå³ıUSAET1´®¿Ú½ÓÊÕ×Ö·û´®»º´æ£¬¼´Çå¿ÕUSART1_RX_String[50]ÖĞµÄÊı¾İ
 		}
+		
+		
+		if(GSM_SysCheck == 1)//Ã¿2minÖ´ĞĞÒ»´ÎGSMÏµÍ³¼ì²â
+		{
+			GSM_SysCheck = 0;//GSMÏµÍ³¼ì²â±êÖ¾·û»Ö¸´µ½×î³õÖµ£¬±ÜÃâÖØ¸´²Ù×÷
+			printf("Ö´ĞĞGSMÏµÍ³¼ì²â.....\n");
+			if(SIM_Check() == 0 || Signal_Check() == 0)//¼ì²âGSMµÄSIM¿¨ºÍ¹¤×÷ĞÅºÅÊÇ·ñ´æÔÚÎÊÌâ
+			{
+				GSM_Restart();//ÖØÆôGSMÄ£¿é
+			}
+			else
+			{
+				printf("GSMÄ£¿é¹¤×÷Õı³£\n");
+			}	
+		}
+		
 	}	
 }

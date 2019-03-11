@@ -7,6 +7,7 @@
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\stm32f10x_gpio.h
 ..\..\output\main.o: ..\..\Libraries\CMSIS\stm32f10x.h
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\stm32f10x_rcc.h
+..\..\output\main.o: ..\..\Libraries\FWlib\inc\stm32f10x_tim.h
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\misc.h
 ..\..\output\main.o: ..\..\BSP\debug_usatr1\bsp_debug_usart1.h
@@ -14,3 +15,4 @@
 ..\..\output\main.o: ..\..\User\call_send_mode_change\call_send_mode_change.h
 ..\..\output\main.o: ..\..\BSP\gsm_usart2\bsp_gsm_usart2.h
 ..\..\output\main.o: ..\..\User\gsm_usart2_data_processing\gsm_usart2_data_processing.h
+..\..\output\main.o: ..\..\BSP\basetime\bsp_basetime.h

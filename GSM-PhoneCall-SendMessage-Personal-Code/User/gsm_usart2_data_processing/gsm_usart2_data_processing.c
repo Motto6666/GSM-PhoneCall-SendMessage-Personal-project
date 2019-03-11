@@ -116,3 +116,22 @@ uint8_t Signal_Check(void)
 	}
 }
 
+uint8_t GSM_Restart(void)
+{
+	USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+  GSM_USART2_Send("AT+CFUN\r");//调试GSM，调试完毕删除
+	SysTick_Delay_ms(100);
+	if( strstr(USART2_RX_String,"OK") == NULL)//检测是否有OK数据帧返回
+	{
+		printf("重启异常！！\n");
+		USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+		return 0;
+	}
+	else
+	{
+		printf("重启成功！！\n");
+		USART2_RX_Clean();//清除USART2_RX_String[50]数组中的数据
+		return 1;
+	}
+}
+

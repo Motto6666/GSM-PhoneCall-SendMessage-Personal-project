@@ -8,6 +8,7 @@
 ..\..\output\gsm_usart2_data_processing.o: ..\..\Libraries\FWlib\inc\stm32f10x_gpio.h
 ..\..\output\gsm_usart2_data_processing.o: ..\..\Libraries\CMSIS\stm32f10x.h
 ..\..\output\gsm_usart2_data_processing.o: ..\..\Libraries\FWlib\inc\stm32f10x_rcc.h
+..\..\output\gsm_usart2_data_processing.o: ..\..\Libraries\FWlib\inc\stm32f10x_tim.h
 ..\..\output\gsm_usart2_data_processing.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\..\output\gsm_usart2_data_processing.o: ..\..\Libraries\FWlib\inc\misc.h
 ..\..\output\gsm_usart2_data_processing.o: ..\..\BSP\gsm_usart2\bsp_gsm_usart2.h
