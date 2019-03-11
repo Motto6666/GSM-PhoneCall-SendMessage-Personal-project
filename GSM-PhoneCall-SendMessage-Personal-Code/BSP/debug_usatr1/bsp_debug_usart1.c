@@ -86,8 +86,9 @@ int fputc(int ch, FILE *f)
 }
 
 
-static char  USART1_RX_String[50];//存放USART1串口接收到的数据的数组
+char  USART1_RX_String[50];//存放USART1串口接收到的数据的数组
 volatile uint16_t USART1_Count = 0;//记录接收到的字符个数，初始值位0
+volatile uint8_t  Receive_Over = 0;//接收数据结束标识符，初始化为0
 
 /*串口接收中断服务函数*/
 void DEBUG_USART1_IRQHandler(void)
@@ -102,8 +103,7 @@ void DEBUG_USART1_IRQHandler(void)
     else
     {
 			USART1_RX_String[USART1_Count] = '\0';//清除空格结束标志位
-			Call_Send_Mode_Change(USART1_RX_String);//判断输入的字符，作出GSM功能的切换
-			USART1_RX_Clean();//清除USAET1串口接收字符串缓存，即清空USART1_RX_String[50]中的数据
+			Receive_Over = 1;//将接收数据结束标识符赋值为1，表示接收数据结束
 		}			
 	}	 
 }

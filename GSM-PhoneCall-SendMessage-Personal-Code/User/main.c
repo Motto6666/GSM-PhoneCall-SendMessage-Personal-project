@@ -12,6 +12,9 @@
 
 extern volatile uint8_t Call_Send_Order;//²¦´òµç»°ºÍ·¢ËÍ¶ÌĞÅ±êÊ¶·û£¬³õÊ¼ÖµÎª0
 extern volatile uint8_t Mode;//²¦´òµç»°ºÍ·¢ËÍ¶ÌĞÅÄ£Ê½£¬³õÊ¼ÖµÎª0
+extern char  USART1_RX_String[50];//´æ·ÅUSART1´®¿Ú½ÓÊÕµ½µÄÊı¾İµÄÊı×é
+extern volatile uint8_t  Receive_Over;//½ÓÊÕÊı¾İ½áÊø±êÊ¶·û£¬³õÊ¼»¯Îª0
+
 
 int main(void)
 {	
@@ -19,36 +22,25 @@ int main(void)
 	GSM_USART2_Config();//³õÊ¼»¯USART2´®¿Ú
 	
 	while(!GSM_Init());//³õÊ¼»¯GSMÄ£¿é
-	
-//	GSM_USART2_Send("AT+CSCS=\"GSM\"\r");//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	SysTick_Delay_ms(100);//µÈ´ıUSART2_RX½ÓÊÕÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	while( strstr(USART2_RX_String,"OK") == NULL);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	
-//	GSM_USART2_Send("AT+CMGF=1\r");//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	SysTick_Delay_ms(100);//µÈ´ıUSART2_RX½ÓÊÕÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	while( strstr(USART2_RX_String,"OK") == NULL);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	
-//	GSM_USART2_Send("AT+CMGS=\"18033156303\"\r");//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	SysTick_Delay_ms(200);//µÈ´ıUSART2_RX½ÓÊÕÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	while( strstr(USART2_RX_String,">") == NULL);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	
-//	GSM_USART2_Send("happy birthday to my dear sistor");//·¢ËÍ¶ÌĞÅÀàÈİ
-//	
-//	GSM_USART2_Send( &end );//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	SysTick_Delay_ms(5000);//µÈ´ıUSART2_RX½ÓÊÕÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	while( strstr(USART2_RX_String,"OK") == NULL);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
-	
-	
+		
 	printf("\r\nÌáÊ¾£ºÊäÈëCallPhoneÎª²¦´òµç»°£¬ÊäÈëSendMessageÎª·¢ËÍ¶ÌĞÅ\r\n");
 	printf("\r\n×¢Òâ£º×Ö·û´®ºóĞèÒªÌí¼Ó'+'·ûºÅ£¡£¡\r\n");
+
+//	/*¼ì²âSIM¿¨²åÈëÊÇ·ñÒì³£*/
+//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
+//  GSM_USART2_Send("AT+CNUM\r");//µ÷ÊÔGSM£¬µ÷ÊÔÍê±ÏÉ¾³ı
+//	SysTick_Delay_ms(100);
+//  printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
+//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
+//	¡
+//	/*¼ì²âĞÅºÅ*/
+//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
+//  GSM_USART2_Send("AT+CSQ\r");//µ÷ÊÔGSM£¬µ÷ÊÔÍê±ÏÉ¾³ı
+//	SysTick_Delay_ms(100);
+//  printf("%s\n",USART2_RX_String);//µ÷ÊÔÍê±ÏÉ¾³ı£¡!
+//	USART2_RX_Clean();//Çå³ıUSART2_RX_String[50]Êı×éÖĞµÄÊı¾İ
+	
+	
 	
   while(1)
 	{
@@ -83,7 +75,7 @@ int main(void)
 			
 			case SENDING_MESSAGE:
 			{ 
-				printf("\r\nÕıÔÚ·¢ËÍ¶ÌĞÅ....\r\n");
+				printf("\r\n·¢ËÍ¶ÌĞÅ¶ÌĞÅÍê±Ï\r\n");
 				Call_Send_Order = NONE;//±ÜÃâÖØ¸´²Ù×÷
 			}break;
 			
@@ -94,6 +86,13 @@ int main(void)
 			}break;
 			
 			default: break;
+		}
+		
+		if(Receive_Over == 1)
+		{
+			Receive_Over = 0;//½ÓÊÕÊı¾İ½áÊø±êÊ¶·û»Ö¸´µ½×î³õÖµ£¬±ÜÃâÖØ¸´²Ù×÷
+			Call_Send_Mode_Change(USART1_RX_String);//ÅĞ¶ÏÊäÈëµÄ×Ö·û£¬×÷³öGSM¹¦ÄÜµÄÇĞ»»
+			USART1_RX_Clean();//Çå³ıUSAET1´®¿Ú½ÓÊÕ×Ö·û´®»º´æ£¬¼´Çå¿ÕUSART1_RX_String[50]ÖĞµÄÊı¾İ
 		}
 	}	
 }

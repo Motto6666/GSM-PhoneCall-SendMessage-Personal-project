@@ -39,12 +39,7 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 						{
 							Mode = NONE;//模式恢复到最初值，避免重复执行
 							Call_Send_Order = CALLING_PHONE;
-							GSM_Call(USART1_RX_String);
-//							GSM_USART2_Send("AT");//调试GSM，调试完毕删除
-//						  GSM_USART2_Send("ATD");//调试GSM，调试完毕删除
-//							GSM_USART2_Send(USART1_RX_String);//调试GSM，调试完毕删除
-//							GSM_USART2_Send(";\r");//调试GSM，调试完毕删除
-							
+							GSM_Call(USART1_RX_String);						
 						}break;
 						
 						case SEND_ALREADY_PREPARE:
@@ -59,7 +54,6 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 							Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
 							printf("%s\n",Phone_Num);//调试使用，调试完毕删除
 							printf("%s\n",USART1_RX_String);//调试使用，调试完毕删除
-							//1.定义一个发送短信的函数，参数分别为Phone_Num以及USART1_RX_String！！！！！！
 							GSM_Send(Phone_Num,USART1_RX_String);//发送短信
 							PhoneNum_Clean(Phone_Num);//清除Phone_Num数组中的数据
 						}break;
@@ -83,7 +77,6 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 		Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
 		printf("%s\n",Phone_Num);//调试使用，调试完毕删除
 		printf("%s\n",USART1_RX_String);//调试使用，调试完毕删除
-		//1.定义一个发送短信的函数，参数分别为Phone_Num以及USART1_RX_String！！！！！！
 		GSM_Send(Phone_Num,USART1_RX_String);//发送短信
 	  PhoneNum_Clean(Phone_Num);//清除Phone_Num数组中的数据
 	}

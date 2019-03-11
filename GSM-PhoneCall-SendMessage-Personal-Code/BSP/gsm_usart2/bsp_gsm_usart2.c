@@ -91,9 +91,7 @@ void GSM_USART2_IRQHandler(void)
 	if(USART_GetITStatus(GSM_USART2,USART_IT_RXNE)!=RESET)
 	{		
 		USART2_RX_String[USART2_Count] = USART_ReceiveData(GSM_USART2);
-    USART2_Count++;
-    //USART2_RX_Clean();//清除USAET1串口接收字符串缓存，即清空USART1_RX_String[50]中的数据
-	    
+    USART2_Count++;	    
 	}	 
 }
 
