@@ -12,7 +12,4 @@
 ..\..\output\call_send_mode_change.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\..\output\call_send_mode_change.o: ..\..\Libraries\FWlib\inc\misc.h
 ..\..\output\call_send_mode_change.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\..\output\call_send_mode_change.o: ..\..\BSP\debug_usatr1\bsp_debug_usart1.h
-..\..\output\call_send_mode_change.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\..\output\call_send_mode_change.o: ..\..\BSP\gsm_usart2\bsp_gsm_usart2.h
 ..\..\output\call_send_mode_change.o: ..\..\User\gsm_usart2_data_processing\gsm_usart2_data_processing.h

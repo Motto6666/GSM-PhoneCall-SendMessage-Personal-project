@@ -11,6 +11,9 @@
 #define            BASIC_TIM_IRQ               TIM6_IRQn
 #define            BASIC_TIM_IRQHandler        TIM6_IRQHandler
 
+#define            GSM_CHECK_ON                TIM_Cmd(BASIC_TIM, ENABLE);
+#define            GSM_CHECK_OFF               TIM_Cmd(BASIC_TIM, DISABLE);
+
 void BASIC_TIM_Init(void);
 
 #endif /*__BSP_BASETIME_H*/

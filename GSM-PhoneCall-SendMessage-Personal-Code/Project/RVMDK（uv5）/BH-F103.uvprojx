@@ -454,21 +454,6 @@
               <FilePath>..\..\Libraries\FWlib\src\misc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\FWlib\src\stm32f10x_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_bkp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\FWlib\src\stm32f10x_bkp.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\FWlib\src\stm32f10x_can.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_cec.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\FWlib\src\stm32f10x_cec.c</FilePath>
@@ -514,11 +499,6 @@
               <FilePath>..\..\Libraries\FWlib\src\stm32f10x_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\FWlib\src\stm32f10x_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_iwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\FWlib\src\stm32f10x_iwdg.c</FilePath>
@@ -542,11 +522,6 @@
               <FileName>stm32f10x_sdio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\FWlib\src\stm32f10x_sdio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\FWlib\src\stm32f10x_spi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_tim.c</FileName>

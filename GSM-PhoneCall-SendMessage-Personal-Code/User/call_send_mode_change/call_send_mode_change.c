@@ -4,8 +4,6 @@
 
 #include "call_send_mode_change.h"
 #include "string.h"
-#include "bsp_debug_usart1.h"//留着USART2头文件，调试GSM，调试完毕删除！！！
-#include "bsp_gsm_usart2.h" //留着USART2头文件，调试GSM，调试完毕删除！！！
 #include "gsm_usart2_data_processing.h"
 
 const char CallPhone_String[50]   = {"CallPhone"};//拨打电话字符串标识符
@@ -31,7 +29,7 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 			
 	if((strcmp(SendMessage_String,USART1_RX_String) != 0 )&& (strcmp(CallPhone_String,USART1_RX_String) != 0))
 	{
-				if(strlen(USART1_RX_String) == 11)//判断输入的电话号码是否为11位
+				if(strlen(USART1_RX_String) == 11 || strlen(USART1_RX_String) == 7)//判断输入的电话号码是否为11位或7位
 				{
 					switch(Mode)
 					{
@@ -52,8 +50,6 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 						{
 							Mode = NONE;//模式恢复到最初值，避免重复执行
 							Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
-							printf("%s\n",Phone_Num);//调试使用，调试完毕删除
-							printf("%s\n",USART1_RX_String);//调试使用，调试完毕删除
 							GSM_Send(Phone_Num,USART1_RX_String);//发送短信
 							PhoneNum_Clean(Phone_Num);//清除Phone_Num数组中的数据
 						}break;
@@ -71,12 +67,10 @@ void Call_Send_Mode_Change(char *USART1_RX_String)
 				}
 	}
 	
-	if(Mode == SENDING_MESSAGE)
+	if(Mode == SENDING_MESSAGE)//若输入的英文短信长度不为11位和7位，则进入该函数
 	{
 		Mode = NONE;//模式恢复到最初值，避免重复执行
 		Call_Send_Order = SENDING_MESSAGE;//切换发送短信状态
-		printf("%s\n",Phone_Num);//调试使用，调试完毕删除
-		printf("%s\n",USART1_RX_String);//调试使用，调试完毕删除
 		GSM_Send(Phone_Num,USART1_RX_String);//发送短信
 	  PhoneNum_Clean(Phone_Num);//清除Phone_Num数组中的数据
 	}

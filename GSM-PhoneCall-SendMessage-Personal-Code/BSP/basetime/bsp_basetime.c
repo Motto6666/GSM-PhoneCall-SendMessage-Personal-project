@@ -6,11 +6,11 @@ static void BASIC_TIM_NVIC_Config(void)//移植时可以根据实际情况作参数修改
 {
     NVIC_InitTypeDef NVIC_InitStructure; 
     // 设置中断组为0
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);	//移植时可以根据实际情况作参数修改	
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//移植时可以根据实际情况作参数修改	
 		// 设置中断来源
     NVIC_InitStructure.NVIC_IRQChannel = BASIC_TIM_IRQ ;	//移植时可以根据实际情况作参数修改
 		// 设置主优先级为 0
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;	 //移植时可以根据实际情况作参数修改
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	 //移植时可以根据实际情况作参数修改
 	  // 设置抢占优先级为3
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;	//移植时可以根据实际情况作参数修改
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -60,7 +60,7 @@ void  BASIC_TIM_IRQHandler (void) //中断服务函数,50ms中断一次
 	{	
 		time++;
 		TIM_ClearITPendingBit(BASIC_TIM , TIM_FLAG_Update); 
-    if(time == 2400)//2min检测GSM模块是否存在异常
+    if(time == 1200)//1min检测GSM模块是否存在异常
     {
 			time = 0;//time清0，重新计时
 			GSM_SysCheck = 1;

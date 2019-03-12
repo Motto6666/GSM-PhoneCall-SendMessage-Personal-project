@@ -1,7 +1,6 @@
 #include "stm32f10x.h"
 #include "bsp_debug_usart1.h"
 #include "call_send_mode_change.h"
-#include "stdio.h"
 #include "bsp_gsm_usart2.h"
 #include "gsm_usart2_data_processing.h"
 #include "bsp_basetime.h"
@@ -10,15 +9,14 @@
 extern volatile uint8_t Call_Send_Order;//拨打电话和发送短信标识符，初始值为0
 extern volatile uint8_t Mode;//拨打电话和发送短信模式，初始值为0
 extern char  USART1_RX_String[50];//存放USART1串口接收到的数据的数组
-extern volatile uint8_t  Receive_Over;//接收数据结束标识符，初始化为0
-extern volatile uint8_t  GSM_SysCheck;//GSM系统检测标志符，初始化为0
-
+extern volatile uint8_t Receive_Over;//接收数据结束标识符，初始化为0
+extern volatile uint8_t GSM_SysCheck;//GSM系统检测标志符，初始化为0
+extern volatile uint32_t time;//时间计数,初始值为0
 
 int main(void)
 {	
   USART1_Config();//初始化USART1串口
 	GSM_USART2_Config();//初始化USART2串口
-	
 	while(!GSM_Init());//初始化GSM模块
 		
 	printf("\r\n提示：输入CallPhone为拨打电话，输入SendMessage为发送短信\r\n");
@@ -32,19 +30,23 @@ int main(void)
 		{
 			case CALL_PHONE_PREPARE:
 			{
+				GSM_CHECK_OFF;//关闭GSM模块检测，避免在打电话的过程中中断执行GSM检测
 				printf("\r\n请输入电话号码：\r\n");
 				Mode = CALL_ALREADY_PREPARE;//切换准备拨打电话模式
 				Call_Send_Order = NONE;//避免重复操作
 			}break;
 			
 			case CALLING_PHONE:
-			{ 
+			{
+        GSM_CHECK_ON;//当拨打电话后，开启定时进行GSM模块检测
+		    time = 0;//重新计时
 				printf("\r\n正在拨打您输入的电话....\r\n");
 				Call_Send_Order = NONE;//避免重复操作
 			}break;
 			
 			case SEND_MESSAGE_PREPARE:
 			{
+				GSM_CHECK_OFF;//关闭GSM模块检测，避免在方式短信的过程中中断执行GSM检测
 				printf("\r\n请输入短信电话号码：\r\n");
 				Mode = SEND_ALREADY_PREPARE;//切换准备发送短信模式
 				Call_Send_Order = NONE;//避免重复操作
@@ -58,7 +60,9 @@ int main(void)
 			}break;
 			
 			case SENDING_MESSAGE:
-			{ 
+			{
+        GSM_CHECK_ON;//当发送短信结束后，开启定时进行GSM模块检测
+		    time = 0;//重新计时				
 				printf("\r\n发送短信短信完毕\r\n");
 				Call_Send_Order = NONE;//避免重复操作
 			}break;
